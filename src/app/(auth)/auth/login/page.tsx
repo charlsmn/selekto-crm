@@ -75,9 +75,19 @@ export default async function LoginPage({
                     <LoginButtonGoogle />
                     <p className="text-xs text-slate-11 font-normal">
                         Al ingresar, estas de acuerdo con nuestros{' '}
-                        <Link href="/terminos">Términos y Condiciones</Link> y
-                        nuestra{' '}
-                        <Link href="/politica">Política de Privacidad</Link>
+                        <Link
+                            href="/terminos"
+                            className="text-primary font-medium"
+                        >
+                            Términos y Condiciones
+                        </Link>{' '}
+                        y nuestra{' '}
+                        <Link
+                            href="/politica"
+                            className="text-primary font-medium"
+                        >
+                            Política de Privacidad
+                        </Link>
                     </p>
                 </>
             )}

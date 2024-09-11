@@ -10,7 +10,7 @@ export default async function ActuallyLogin() {
         <div className="grid gap-2 text-center">
             <p className="mb-1">Iniciaste sesión como {session?.user.email}</p>
             <Button>
-                <Link href="/dashboard">Continuar</Link>
+                <Link href="/">Continuar</Link>
             </Button>
             <LogoutButton textButton="Iniciar sesión con otro correo" />
         </div>

@@ -10,7 +10,7 @@ export default function LoginButtonGoogle() {
 
     const handleClick = async () => {
         setLoading(true)
-        await signIn('google', { callbackUrl: '/dashboard' })
+        await signIn('google', { callbackUrl: '/' })
         setLoading(false)
     }
 

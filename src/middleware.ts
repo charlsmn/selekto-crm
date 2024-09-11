@@ -11,7 +11,7 @@ const authRoutes = [
     '/auth/forgot-password',
     '/auth/recover-password',
 ]
-const apiAuthPrefix = '/api/auth'
+const apiAuthPrefix = '/api'
 
 export default auth((req) => {
     const { nextUrl } = req

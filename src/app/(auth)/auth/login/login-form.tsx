@@ -21,12 +21,14 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { AlertCircle, ArrowRight } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { useRouter } from 'next/navigation'
 
 export function LoginForm() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
     const [emailSend, setEmailSend] = useState(false)
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -48,6 +50,8 @@ export function LoginForm() {
             } else {
                 setError(response.error)
             }
+        } else {
+            router.push('/')
         }
     }
 

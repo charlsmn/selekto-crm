@@ -84,14 +84,15 @@ export default {
     callbacks: {
         jwt({ token, user }) {
             if (user) {
-                // User is available during sign-in
                 token.role = user.role
+                token.id = user?.id
             }
             return token
         },
         session({ session, token }) {
-            if (session.user) {
+            if (session.user && token.sub) {
                 session.user.role = token.role
+                session.user.id = token.sub
             }
             return session
         },
