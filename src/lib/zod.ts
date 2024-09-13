@@ -50,3 +50,14 @@ export const recoverPasswordSchema = object({
         'Tu email no es válido, revisa de nuevo'
     ),
 })
+
+export const createTaskSchema = object({
+    name: string({ required_error: 'Escribe el nombre de la tarea' }).min(3, {
+        message: 'Escribe el nombre de la tarea',
+    }),
+    description: string({
+        required_error: 'Escribe la descripción de la tarea',
+    }).min(3, {
+        message: 'Escribe la descripción de la tarea',
+    }),
+})

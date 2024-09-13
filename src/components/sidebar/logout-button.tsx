@@ -1,5 +1,5 @@
 import { signOut } from '@/auth'
-import { Button } from '@/components/ui/button'
+import { LogOut } from 'lucide-react'
 
 type LogoutButtonProps = {
     textButton?: string
@@ -13,9 +13,10 @@ export default function LogoutButton({ textButton }: LogoutButtonProps) {
                 await signOut()
             }}
         >
-            <Button type="submit" className="w-full" variant={'outline'}>
+            <button type="submit" className="w-full flex items-center">
+                <LogOut className="mr-2 h-4 w-4" />
                 {textButton || 'Cerrar sesión'}
-            </Button>
+            </button>
         </form>
     )
 }

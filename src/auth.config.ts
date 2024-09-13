@@ -77,22 +77,46 @@ export default {
                     throw new Error('email')
                 }
 
-                return user
+                return {
+                    ...user,
+                    lastname: user.lastname ?? undefined,
+                }
             },
         }),
     ],
     callbacks: {
-        jwt({ token, user }) {
+        async jwt({ token, user, profile }) {
             if (user) {
                 token.role = user.role
                 token.id = user?.id
+                token.lastname = user?.lastname
+
+                if (
+                    profile &&
+                    profile.picture &&
+                    user.image !== profile.picture
+                ) {
+                    // Actualizar imagen en la base de datos
+                    await prisma.user.update({
+                        where: {
+                            id: user.id,
+                        },
+                        data: {
+                            image: profile.picture,
+                        },
+                    })
+                } else {
+                    token.image = profile?.picture
+                }
             }
             return token
         },
-        session({ session, token }) {
+        async session({ session, token }) {
             if (session.user && token.sub) {
                 session.user.role = token.role
                 session.user.id = token.sub
+                session.user.lastname = token.lastname
+                session.user.image = token.image
             }
             return session
         },
@@ -105,6 +129,7 @@ export default {
                 },
                 data: {
                     emailVerified: new Date(),
+                    image: user.image,
                 },
             })
         },

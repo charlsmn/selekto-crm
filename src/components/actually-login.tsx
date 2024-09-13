@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import LogoutButton from './logout-button'
-import { auth } from '@/auth'
+
+import { auth, signOut } from '@/auth'
+import { LogOut } from 'lucide-react'
 
 export default async function ActuallyLogin() {
     const session = await auth()
@@ -12,7 +13,21 @@ export default async function ActuallyLogin() {
             <Button>
                 <Link href="/dashborad">Continuar</Link>
             </Button>
-            <LogoutButton textButton="Iniciar sesión con otro correo" />
+            <form
+                action={async () => {
+                    'use server'
+                    await signOut()
+                }}
+            >
+                <Button
+                    type="submit"
+                    className="w-full flex items-center"
+                    variant={'outline'}
+                >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Iniciar sessión con otro correo
+                </Button>
+            </form>
         </div>
     )
 }

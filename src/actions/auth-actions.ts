@@ -55,12 +55,20 @@ export const registerAction = async (
 
         const passwordHash = await bcrypt.hash(data.password, 10)
 
+        //Consultar plan gratuito
+        const freePlan = await prisma.plans.findFirst({
+            where: {
+                price: 0,
+            },
+        })
+
         await prisma.user.create({
             data: {
                 name: data.name,
                 lastname: data.lastname,
                 email: data.email,
                 password: passwordHash,
+                planId: freePlan?.planId,
             },
         })
 
