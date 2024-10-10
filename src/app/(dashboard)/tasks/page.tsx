@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { deleteTaskAction } from '@/actions/tasks-actions'
+import ZohoConnection from '@/components/zoho-conection'
 
 export default async function Tasks() {
     const session = await auth()
@@ -19,29 +20,34 @@ export default async function Tasks() {
     })
 
     return (
-        <ul>
-            {tasks.map((task) => (
-                <li
-                    key={task.taskId}
-                    className="border border-primary rounded-lg p-4 mb-4"
-                >
-                    <h3>{task.name}</h3>
-                    <p>{task.description}</p>
-                    <Button asChild>
-                        <Link href={`/tasks/${task.taskId}`}>Ver detalles</Link>
-                    </Button>
-                    <form
-                        action={async () => {
-                            'use server'
-                            await deleteTaskAction(task.taskId)
-                        }}
+        <>
+            <ul>
+                {tasks.map((task) => (
+                    <li
+                        key={task.taskId}
+                        className="border border-primary rounded-lg p-4 mb-4"
                     >
-                        <Button variant="destructive" type="submit">
-                            Borrar
+                        <h3>{task.name}</h3>
+                        <p>{task.description}</p>
+                        <Button asChild>
+                            <Link href={`/tasks/${task.taskId}`}>
+                                Ver detalles
+                            </Link>
                         </Button>
-                    </form>
-                </li>
-            ))}
-        </ul>
+                        <form
+                            action={async () => {
+                                'use server'
+                                await deleteTaskAction(task.taskId)
+                            }}
+                        >
+                            <Button variant="destructive" type="submit">
+                                Borrar
+                            </Button>
+                        </form>
+                    </li>
+                ))}
+            </ul>
+            <ZohoConnection />
+        </>
     )
 }
